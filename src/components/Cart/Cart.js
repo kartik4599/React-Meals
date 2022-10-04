@@ -11,9 +11,13 @@ const Cart = (props) => {
 
   const hasItem = cxt.items.length > 0;
 
-  const removeItemHandler = (id) => {};
+  const removeItemHandler = (id) => {
+    cxt.removeItem(id);
+  };
 
-  const addItemHandler = (item) => {};
+  const addItemHandler = (item) => {
+    cxt.addItem(item)
+  };
 
   const totalList = (
     <ul className={classes["cart-items"]}>
