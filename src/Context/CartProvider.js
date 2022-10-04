@@ -9,9 +9,7 @@ const CartProvider = (props) => {
 
   const cartReducer = (state, action) => {
     if (action.type === "Add") {
-      const updatedTotalAmount =
-        action.item.price * action.item.amount + state.totalAmount;
-
+      let updatedTotalAmount;
       const existingCartItemIndex = state.items.findIndex(
         (item) => item.id === action.item.id
       );
@@ -25,15 +23,17 @@ const CartProvider = (props) => {
           ...existingCartItem,
           amount: existingCartItem.amount + 1,
         };
+        updatedTotalAmount=state.totalAmount+(+action.item.price);
         updatedItems = [...state.items];
         updatedItems[existingCartItemIndex] = updatedItem;
       } else {
         updatedItems = [action.item, ...state.items];
+        updatedTotalAmount=state.totalAmount+(action.item.price*action.item.amount);
       }
 
       return {
         items: updatedItems,
-        totalAmount: updatedTotalAmount,
+        totalAmount: +updatedTotalAmount,
       };
     }
     if (action.type === "Remove") {
